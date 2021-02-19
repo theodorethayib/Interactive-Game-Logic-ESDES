@@ -18,29 +18,42 @@ Make the game start by running this file.
 Author:
 '''
 
-def foo():
+game_state = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']]
+
+def foo(game_state, user_choice, computer_choice):
     ...
 
+def new_game():
+    game_state = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']]
+
+def show_game_state():
+    print(game_state[0][0] + '|' + game_state[0][1] + '|' + game_state[0][2])
+    print('------')
+    print(game_state[1][0] + '|' + game_state[1][1] + '|' + game_state[1][2])
+    print('------')
+    print(game_state[2][0] + '|' + game_state[2][1] + '|' + game_state[2][2])
 def main():
     '''You don't have to use this skeleton code'''
 
     #TODO: implement
     #game_state = new_game()
 
-    while True:
-        #TODO: prompt user to make a selection or call a function to retrieve it
-        #needs validation
-        user_choice = None 
+    show_game_state()
 
-        #TODO: select computer's choice or call a function to retrieve it
-        computer_choice = None
-
-        #TODO: decide and dispaly the results
-        game_result = foo(game_state, user_choice, computer_choice)
-
-        #TODO: implement quit or start new game condition
-        if False:
-            break
+    # while True:
+    #     #TODO: prompt user to make a selection or call a function to retrieve it
+    #     #needs validation
+    #     user_choice = None
+    #
+    #     #TODO: select computer's choice or call a function to retrieve it
+    #     computer_choice = None
+    #
+    #     #TODO: decide and dispaly the results
+    #     game_result = foo(game_state, user_choice, computer_choice)
+    #
+    #     #TODO: implement quit or start new game condition
+    #     if False:
+    #         break
 
 if __name__ == "__main__":
     main()
