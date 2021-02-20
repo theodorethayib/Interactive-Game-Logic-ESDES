@@ -120,6 +120,7 @@ def hit(player):
 def game_instance(player, computer):
     global chips
     doplay = True
+    status = 0
 
 
 
@@ -132,7 +133,7 @@ def game_instance(player, computer):
         computergo = True
         player1val = 0
         computerval = 0
-        status = 0
+
 
         if status != 1:
             wager = input('How many tokens would you like to wager?')
@@ -172,6 +173,7 @@ def game_instance(player, computer):
             else:
                 print('The computer does not have a blackjack. You win!')
                 chips += int((int(wager) * 1.5))
+                status = 0
 
         while playergo:
             playergo = player_turn(player)
@@ -199,20 +201,24 @@ def game_instance(player, computer):
                 print('\nThe computer busts! You win!')
                 chips += int(wager)
                 player1val = -3
+                status = 0
                 break
         if player1val > -2:
             if player1val > computerval:
                 print('\nYou win! Congratulations!')
                 chips += int(wager)
+                status = 0
             elif player1val == computerval:
                 print('\nYou and the computer have the same hand total! This hand will be pushed')
                 status = 1
             elif player1val == -1:
                 print('\nYou have busted. Better luck next time!')
                 chips -= int(wager)
+                status = 0
             else:
                 print('\nThe computer has the better hand. Better luck next time!')
                 chips -= int(wager)
+                status = 0
         # print(player1val)
         # print(computerval)
 
