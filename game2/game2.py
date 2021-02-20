@@ -102,10 +102,10 @@ def print_player_cards(cards):
 
 def player_turn(player):
     card = input('\nHit (H) or Stand (S)?')
-    if card == 'H':
+    if card.upper() == 'H':
         hit(player)
         return True
-    elif card == 'S':
+    elif card.upper() == 'S':
         return False
 
 
