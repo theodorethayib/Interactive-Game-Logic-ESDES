@@ -112,13 +112,11 @@ def save_game():
 
 
 def player_turn(player):
-    card = input('Hit (H) or Stand (S)?')
+    card = input('\nHit (H) or Stand (S)?')
     if card == 'H':
-        print('HIT')
         hit(player)
         return True
     elif card == 'S':
-        print('STAND')
         return False
 
 
@@ -138,7 +136,7 @@ def game_instance(player, computer):
 
     while doplay:
         if chips == 0:
-            print('You currently do not have any chips. Please add some more before you play!')
+            print('You currently do not have any chips. Please add some more before you play!\n')
             break
 
         playergo = True
@@ -165,14 +163,15 @@ def game_instance(player, computer):
         hit(computer)
         hit(player)
 
-        print('The computer has a face-up card of:')
+        print('\nThe computer has a face-up card of:')
         print_player_cards(computer.cards)
 
-        print('You have cards of:')
+        print('\nYou have cards of:')
         print_player_cards(player.cards)
 
         hit(computer)
         computerval = computer.aceElevenValue
+        # print('\n')
 
         if player.aceElevenValue == 21:
             print('You have a blackjack!')
@@ -189,7 +188,7 @@ def game_instance(player, computer):
             playergo = player_turn(player)
             # print(player.aceOneValue)
             # print(player.aceElevenValue)
-            print("Your current hand consists of: ")
+            print("\nYour current hand consists of: ")
             print_player_cards(player.cards)
             # curstatus = player.hand_status()
             if player.aceOneValue > 21:
@@ -200,44 +199,44 @@ def game_instance(player, computer):
                 player1val = player.aceElevenValue if player.aceElevenValue < 21 else player.aceOneValue
         # print(player1val)
         if player1val != -1:
-            print("The computer's current hand consists of:")
+            print("\nThe computer's current hand consists of:")
             print_player_cards(computer.cards)
         while player1val >= 0 and computerval < 17:
             hit(computer)
             computerval = computer.aceElevenValue
-            print("The computer's current hand consists of:")
+            print("\nThe computer's current hand consists of:")
             print_player_cards(computer.cards)
             if computerval > 21:
-                print('The computer busts! You win!')
+                print('\nThe computer busts! You win!')
                 chips += int(wager)
                 player1val = -3
                 break
         if player1val > -2:
             if player1val > computerval:
-                print('You win! Congratulations!')
+                print('\nYou win! Congratulations!')
                 chips += int(wager)
             elif player1val == computerval:
-                print('You and the computer have the same hand total! This hand will be pushed')
+                print('\nYou and the computer have the same hand total! This hand will be pushed')
                 status = 1
             elif player1val == -1:
-                print('You have busted. Better luck next time!')
+                print('\nYou have busted. Better luck next time!')
                 chips -= int(wager)
             else:
-                print('The computer has the better hand. Better luck next time!')
+                print('\nThe computer has the better hand. Better luck next time!')
                 chips -= int(wager)
         # print(player1val)
         # print(computerval)
 
         while status != 1:
-            print('You currently have ' + str(chips) + ' chips!')
+            print('\nYou currently have ' + str(chips) + ' chips!\n')
             goagain = input('Would you like to play again? (Y/N)')
-            if goagain == 'Y':
+            if goagain.upper() == 'Y':
                 print('Playing again. Good luck!')
                 print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
                 new_game(player, computer)
                 break
-            elif goagain == 'N':
-                print('See you next time!')
+            elif goagain.upper() == 'N':
+                print('See you next time!\n')
                 doplay = False
                 break
             else:
@@ -262,7 +261,6 @@ def hand_total(hand):
 def main():
     global chips
 
-    print('test')
     player = Hand([], 0, 0, False)
     computer = Hand([], 0, 0, False)
     new_game(player, computer)
@@ -273,8 +271,9 @@ def main():
             print('You currently have ' + str(chips) + ' chips.')
             chips_add = input('How many chips would you like to add?')
             chips += int(chips_add)
-            print('You now have ' + str(chips) + ' chips!')
+            print('\nYou now have ' + str(chips) + ' chips!\n')
         if app_state.upper() == 'Q':
+            print('\nSee you next time!')
             break
         if app_state.upper() == 'P':
             game_instance(player, computer)
@@ -282,11 +281,11 @@ def main():
             f = open("blackjack_savefile.txt", "w")
             f.write(str(chips))
             f.close()
-            print('Saved ' + str(chips) + ' chips into the save!')
+            print('\nSaved ' + str(chips) + ' chips into the save!\n')
         if app_state.upper() == 'L':
             f = open("blackjack_savefile.txt", "r")
             chips = int(f.read())
-            print('Your chip count has been loaded from the previous save. You currently have ' + str(chips) + ' chips')
+            print('\nYour chip count has been loaded from the previous save. You currently have ' + str(chips) + ' chips\n')
             # print(f.read())
             f.close()
     # print(hand_total([26, 14]))
