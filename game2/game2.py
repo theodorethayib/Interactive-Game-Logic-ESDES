@@ -27,6 +27,7 @@ deck_of_cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 
 card_deck = []
 player_hand = []
 computer_hand = []
+chips = 0
 
 
 class Hand:
@@ -50,11 +51,11 @@ class Hand:
             self.aceOneValue += modcardvalue
             self.aceElevenValue += modcardvalue
 
-    def hand_status(self):
-        if self.aceOneValue > 21:
-            return 'Bust'
-        else:
-            return 'Playable'
+    # def hand_status(self):
+    #     if self.aceOneValue > 21:
+    #         return 'Bust'
+    #     else:
+    #         return 'Playable'
 
     def reset(self):
         self.cards = []
@@ -130,13 +131,29 @@ def hit(player):
 
 
 def game_instance(player, computer):
+    global chips
     doplay = True
+
+
+
     while doplay:
+        if chips == 0:
+            print('You currently do not have any chips. Please add some more before you play!')
+            break
+
         playergo = True
         computergo = True
         player1val = 0
         computerval = 0
         status = 0
+
+        if status != 1:
+            wager = input('How many tokens would you like to wager?')
+            if int(wager) > chips:
+                print('You have wagered more than you have chips. You have wagered all your chips instead!')
+                wager = chips
+
+
 
         # cardDrawn = random.randrange(0, len(card_deck), 1)
         # cardval = card_deck[cardDrawn]
@@ -166,6 +183,7 @@ def game_instance(player, computer):
                 status = 1
             else:
                 print('The computer does not have a blackjack. You win!')
+                chips += int((int(wager) * 1.5))
 
         while playergo:
             playergo = player_turn(player)
@@ -173,14 +191,17 @@ def game_instance(player, computer):
             # print(player.aceElevenValue)
             print("Your current hand consists of: ")
             print_player_cards(player.cards)
-            curstatus = player.hand_status()
-            if curstatus == 'Bust':
+            # curstatus = player.hand_status()
+            if player.aceOneValue > 21:
                 # print('Bust. Better luck next time!')
                 player1val = -1
                 break
             else:
                 player1val = player.aceElevenValue if player.aceElevenValue < 21 else player.aceOneValue
         # print(player1val)
+        if player1val != -1:
+            print("The computer's current hand consists of:")
+            print_player_cards(computer.cards)
         while player1val >= 0 and computerval < 17:
             hit(computer)
             computerval = computer.aceElevenValue
@@ -188,21 +209,27 @@ def game_instance(player, computer):
             print_player_cards(computer.cards)
             if computerval > 21:
                 print('The computer busts! You win!')
+                chips += int(wager)
+                player1val = -3
                 break
         if player1val > -2:
             if player1val > computerval:
                 print('You win! Congratulations!')
+                chips += int(wager)
             elif player1val == computerval:
                 print('You and the computer have the same hand total! This hand will be pushed')
                 status = 1
             elif player1val == -1:
                 print('You have busted. Better luck next time!')
+                chips -= int(wager)
             else:
                 print('The computer has the better hand. Better luck next time!')
+                chips -= int(wager)
         # print(player1val)
         # print(computerval)
 
         while status != 1:
+            print('You currently have ' + str(chips) + ' chips!')
             goagain = input('Would you like to play again? (Y/N)')
             if goagain == 'Y':
                 print('Playing again. Good luck!')
@@ -233,11 +260,35 @@ def hand_total(hand):
 
 
 def main():
+    global chips
+
     print('test')
     player = Hand([], 0, 0, False)
     computer = Hand([], 0, 0, False)
     new_game(player, computer)
-    game_instance(player, computer)
+
+    while True:
+        app_state = input("Would you like to add chips (A), play blackjack (P), load chip count from previous save (L), or save chip count (S), or quit (Q)?")
+        if app_state.upper() == 'A':
+            print('You currently have ' + str(chips) + ' chips.')
+            chips_add = input('How many chips would you like to add?')
+            chips += int(chips_add)
+            print('You now have ' + str(chips) + ' chips!')
+        if app_state.upper() == 'Q':
+            break
+        if app_state.upper() == 'P':
+            game_instance(player, computer)
+        if app_state.upper() == 'S':
+            f = open("blackjack_savefile.txt", "w")
+            f.write(str(chips))
+            f.close()
+            print('Saved ' + str(chips) + ' chips into the save!')
+        if app_state.upper() == 'L':
+            f = open("blackjack_savefile.txt", "r")
+            chips = int(f.read())
+            print('Your chip count has been loaded from the previous save. You currently have ' + str(chips) + ' chips')
+            # print(f.read())
+            f.close()
     # print(hand_total([26, 14]))
 
 
