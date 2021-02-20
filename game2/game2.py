@@ -100,17 +100,6 @@ def print_player_cards(cards):
         print(cardstr)
     # print(cards)
 
-
-def load_game(save_location):
-    print('Load')
-    # TODO load game from file
-
-
-def save_game():
-    print('Save')
-    # TODO save game to file
-
-
 def player_turn(player):
     card = input('\nHit (H) or Stand (S)?')
     if card == 'H':
