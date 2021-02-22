@@ -1,5 +1,5 @@
 '''
-1. Replace this block comment with a useful description of what this file and what your game is
+1. Blackjack Game
 
 Make the game start by running this file.
 
@@ -16,7 +16,7 @@ Make the game start by running this file.
     e. Example: Battleship has random selection of piece positions and simple strategy involves knowing which direction to guess after a hit
     f. Example: may use read/write to file as a way to save game and continue later
 
-Author:
+Author: Theodore Thayib
 '''
 
 import random
