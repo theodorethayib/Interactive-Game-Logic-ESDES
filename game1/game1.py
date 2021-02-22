@@ -119,7 +119,7 @@ def win_lose():
             return 1
         return 2
     if game_state[0][2] == game_state[1][1] and game_state[1][1] == game_state[2][0] and game_state[2][0] != " ":
-        if game_state[0][0] == 'X':
+        if game_state[0][2] == 'X':
             return 1
         return 2
 
