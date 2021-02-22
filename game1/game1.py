@@ -15,7 +15,7 @@ Make the game start by running this file.
     d. Example: tictactoe winner is decided based on current state of game and the player's input
     e. Tictactoe game board can be stored in a list, and the player input could be verified by making sure input is an open space
     
-Author: blub blub blub
+Author: Kim Phu
 '''
 
 import random
