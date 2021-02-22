@@ -22,19 +22,20 @@ import random
 
 game_state = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']]
 
-def foo(game_state, user_choice, computer_choice):
-    ...
 
 def new_game():
     global game_state
     game_state = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']]
 
+
 def get_user_input():
     temp = input("TESDF").upper()
     print(temp)
 
+
 def edit_game_state(xox, loc):
     game_state[int(loc[0])][int(loc[1])] = xox
+
 
 def computer_move():
     possible_moves = []
@@ -54,16 +55,20 @@ def show_game_state():
     print('------')
     print(game_state[2][0] + '|' + game_state[2][1] + '|' + game_state[2][2])
 
+
 def edit_game_state(xox, loc):
     game_state[int(loc[0])][int(loc[1])] = xox
+
 
 def get_user_input(xox_input):
     loc_input = get_loc_input()
     edit_game_state(xox_input, loc_input)
 
+
 def vs_computer_input():
     loc_input = get_loc_input()
     edit_game_state("X", loc_input)
+
 
 def get_loc_input():
     while True:
@@ -88,6 +93,7 @@ def get_loc_input():
             print("That square is occupied. ):<")
 
     return loc_input
+
 
 def win_lose():
     if game_state[0][0] == game_state[1][0] and game_state[0][0] == game_state[2][0] and game_state[0][0] != " ":
@@ -133,6 +139,7 @@ def win_lose():
 
     return 0
 
+
 def computer_move():
     possible_moves = []
     for i in range(len(game_state)):
@@ -142,6 +149,7 @@ def computer_move():
     rand_move = random.randrange(0, len(possible_moves), 1)
     loc_move = [int(possible_moves[rand_move] / 3), int(possible_moves[rand_move] % 3)]
     edit_game_state("O", loc_move)
+
 
 def vs_computer():
     new_game()
@@ -186,6 +194,7 @@ def vs_player():
     elif play == 3:
         print("Draw!")
 
+
 def main():
     while True:
         user_input = input("Would you like to play against a computer (C), a player (P), or quit (Q)?").upper()
@@ -197,21 +206,6 @@ def main():
             print("Bye.")
             break
 
-
-    # while True:
-    #     #TODO: prompt user to make a selection or call a function to retrieve it
-    #     #needs validation
-    #     user_choice = None
-    #
-    #     #TODO: select computer's choice or call a function to retrieve it
-    #     computer_choice = None
-    #
-    #     #TODO: decide and display the results
-    #     game_result = foo(game_state, user_choice, computer_choice)
-    #
-    #     #TODO: implement quit or start new game condition
-    #     if False:
-    #         break
 
 if __name__ == "__main__":
     main()
